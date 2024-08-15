@@ -34,7 +34,7 @@ class ASR_LLM:
         ("human", human),
         MessagesPlaceholder("agent_scratchpad"),
     ]
-)       #wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=2500))
+)       wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=2500))
         wikipedia_tool = Tool(
             name="wikipedia",
             description="Never search for more than one concept at a single step. If you need to compare two concepts, search for each one individually. Syntax: string with a simple concept",
