@@ -14,20 +14,6 @@ import whisper
 from prompt_template import system, human
 #search = SerpAPIWrapper()
 
-llm = VLLMOpenAI(
-    openai_api_key="EMPTY",
-    openai_api_base="http://localhost:8000/v1",
-    model_name="Mistral-Nemo-Instruct-2407",
-    max_tokens=2048,
-
-)
-
-wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=2500))
-wikipedia_tool = Tool(
-    name="wikipedia",
-    description="Never search for more than one concept at a single step. If you need to compare two concepts, search for each one individually. Syntax: string with a simple concept",
-    func=wikipedia.run
-)
 
 class ASR_LLM:
     def __init__(self,asr_model,llm_name):
@@ -48,7 +34,12 @@ class ASR_LLM:
         ("human", human),
         MessagesPlaceholder("agent_scratchpad"),
     ]
-)
+)       #wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper(top_k_results=1, doc_content_chars_max=2500))
+        wikipedia_tool = Tool(
+            name="wikipedia",
+            description="Never search for more than one concept at a single step. If you need to compare two concepts, search for each one individually. Syntax: string with a simple concept",
+            func=wikipedia.run
+        )
         agent = create_json_chat_agent(
         tools = [wikipedia_tool],
         llm = llm,
