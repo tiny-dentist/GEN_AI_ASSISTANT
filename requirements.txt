@@ -1,0 +1,6 @@
+langchain
+langchain_community
+whisper
+transformers
+scipy
+SpeechRecognition
