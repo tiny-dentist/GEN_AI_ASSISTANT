@@ -12,5 +12,5 @@ Given below is the higher level architecture diagram for the entire pipeline:
 
 # Software and Hardware Used
 
-### Software: Huggingface,VLLM,Whisper library, speech_recognition,Pytorch, ROCM
+#### Software: Huggingface,VLLM,Whisper library, speech_recognition,Pytorch, ROCM
 #### Hardware: AMD Radeon™ PRO W7900 Professional Graphics, AMD® Ryzen 5 7600x, 32GB DDR5 RAM, 1 TB SSD 
