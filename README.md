@@ -16,3 +16,29 @@ Given below is the higher level architecture diagram for the entire pipeline:
 
 #### Software: Huggingface,VLLM,Whisper library, speech_recognition,Pytorch, ROCM
 #### Hardware: AMD Radeon™ PRO W7900 Professional Graphics, AMD® Ryzen 5 7600x, 32GB DDR5 RAM, 1 TB SSD 
+
+# Installation and setup
+To get the applicatio running, you would need to install ROCM and the VLLM ROCM container. First let us install ROCM. We will use ROCM 6.1.2
+
+####ROCM: 
+sudo apt update
+sudo apt install "linux-headers-$(uname -r)" "linux-modules-extra-$(uname -r)"
+sudo usermod -a -G render,video $LOGNAME # Add the current user to the render and video groups
+wget https://repo.radeon.com/amdgpu-install/6.2/ubuntu/noble/amdgpu-install_6.2.60200-1_all.deb
+sudo apt install ./amdgpu-install_6.2.60200-1_all.deb
+sudo apt update
+sudo apt install amdgpu-dkms rocm
+
+Reboot your computer and then verify if your GPU is working fine via ROCM-SMI
+
+####VLLM
+1. First clone the vllm repoistory via git clone https://github.com/vllm-project/vllm.git
+2. Navigate inside it via cd vllm
+3. Run the following command to start the containe build process for VLLM: DOCKER_BUILDKIT=1 docker build --build-arg BUILD_FA="0" -f Dockerfile.rocm -t vllm-rocm . (Note that the application build process will take some time)
+4. Start the container via the following command: docker run -it    --network=host    --group-add=video    --ipc=host    --cap-add=SYS_PTRACE    --security-opt seccomp=unconfined    --device /dev/kfd    --device /dev/dri    -v /home:/home/rahulsinhg55    vllm-rocm    bash (Note: -v will be the volume mount where your huggingface model will be)
+5. Download the Mistral Nemo 12B model via the following code snippit:
+6. from huggingface_hub import snapshot_download
+  snapshot_download(repo_id="mistralai/Mistral-Nemo-Instruct-2407",local_dir="Mistral-Nemo-Instruct-2407",local_dir_use_symlink=False)
+7. Start the VLLM OpenAI server via the following command: vllm serve Mistral-Nemo-Instruct-2407 --dtype auto --max-model-len 4096 -enforce-eager
+8. Run pip install -r requirements.txt to install the other dependencies inside the docker.
+9. Run python3 main.py inside the docker to start the application demo. (Ensure that you have a speaker and microphone present to demo it!)
