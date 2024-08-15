@@ -31,7 +31,7 @@ sudo apt install amdgpu-dkms rocm
 
 Reboot your computer and then verify if your GPU is working fine via ROCM-SMI
 
-#### VLLM
+#### VLLM:
 1. First clone the vllm repoistory via git clone https://github.com/vllm-project/vllm.git
 2. Navigate inside it via cd vllm
 3. Run the following command to start the containe build process for VLLM: DOCKER_BUILDKIT=1 docker build --build-arg BUILD_FA="0" -f Dockerfile.rocm -t vllm-rocm . (Note that the application build process will take some time)
