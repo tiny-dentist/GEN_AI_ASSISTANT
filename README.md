@@ -12,4 +12,4 @@ Given below is the higher level architecture diagram for the entire pipeline:
 
 # Software and Hardware Used
 
-## Software: Huggingface,VLLM,Whisper library, speech_recognition,Pytorch, ROCM
+### Software: Huggingface,VLLM,Whisper library, speech_recognition,Pytorch, ROCM
