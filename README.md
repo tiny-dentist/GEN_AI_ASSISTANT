@@ -9,3 +9,7 @@ Our pipeline consists of three models, OpenAI Whisper V3 model responsible for c
 Given below is the higher level architecture diagram for the entire pipeline:
 
 ![arch_diag](https://github.com/user-attachments/assets/73fc25c3-17a7-4e39-ac24-56c350e4947d)
+
+# Software and Hardware Used
+
+## Software: Huggingface,VLLM,Whisper library, speech_recognition,Pytorch, ROCM
